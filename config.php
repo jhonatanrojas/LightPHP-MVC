@@ -22,7 +22,10 @@ $config['TWTTER_CLIENTE_SECRET']='72eVSXjJ8jKbTHyWY5eAHV6rMGK-INrzmaDKPQHmHGaTxX
 $config['TWITTER_API_KEYSECRET'] = 'MUc4WmRxQ0dYY1I2cGVKQUZBb3Y6MTpjaQ';
 $config['TWTTER_CALLBACK_URL']='http://localhost:4000/auth_twitter';
 
-
+//FACRBOOK
+$config['APP_ID_FACEBOOK']='555977850002156';
+ $config['APP_SECRET_FACEBOOK'] ='72b258ba2e223327c47f43049cca4b43';
+ $config['ACCESS_TOKEN_FACEBOOK']='';
 if ($eslocalhost) {
 	define("BASE_URL", "http://localhost/backendComparteYa/");
 	$config['dbname'] = 'email_marketing_practisis';

@@ -29,6 +29,10 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
             'SendGrid\\Contacts\\' => 18,
             'SendGrid\\' => 9,
         ),
+        'F' => 
+        array (
+            'Facebook\\' => 9,
+        ),
         'C' => 
         array (
             'Composer\\CaBundle\\' => 18,
@@ -75,6 +79,10 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
         'SendGrid\\' => 
         array (
             0 => __DIR__ . '/..' . '/sendgrid/php-http-client/lib',
+        ),
+        'Facebook\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook',
         ),
         'Composer\\CaBundle\\' => 
         array (

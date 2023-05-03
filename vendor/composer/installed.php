@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '76f413ffb7af1553158449b31c17067fc7c32e1f',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '76f413ffb7af1553158449b31c17067fc7c32e1f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -34,6 +34,15 @@
             'reference' => '74780ccf8c19d6acb8d65c5f39cd72110e132bbd',
             'type' => 'library',
             'install_path' => __DIR__ . '/./ca-bundle',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'facebook/graph-sdk' => array(
+            'pretty_version' => '5.1.4',
+            'version' => '5.1.4.0',
+            'reference' => '38fd7187a6704d3ab14ded2f3a534ac4ee6f3481',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../facebook/graph-sdk',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
