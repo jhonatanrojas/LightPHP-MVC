@@ -8,11 +8,12 @@ class ImageUploader
     private $maxFileSize;
 
     public function __construct(
-        $uploadDirectory = '../uploads/',
+        $uploadDirectory = null,
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'],
         $maxFileSize = 10485760 // 10 MB
     ) {
-        $this->uploadDirectory = $uploadDirectory;
+        $this->uploadDirectory = $uploadDirectory === null ? __DIR__ . '/../uploads/' : $uploadDirectory;
+
         $this->allowedExtensions = $allowedExtensions;
         $this->maxFileSize = $maxFileSize;
     }
