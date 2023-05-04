@@ -47,7 +47,11 @@ class SocialMediaPost
                 foreach ($images as $image) {
                     // Sube las imágenes a Facebook antes de publicarlas
                     $photoData = [
-                        'source' => $this->facebook->fileToUpload(fopen($image, 'r'))
+                        'source' => $this->facebook->fileToUpload($image, 'r'),
+                        'published' => 'false', // Para que no se publiquen inmediatamente
+                        'message' => $text,
+                        
+
 
                     ];
                     $response = $this->facebook->post('/me/photos', $photoData, $accessToken);
