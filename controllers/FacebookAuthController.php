@@ -16,6 +16,8 @@ error_reporting(E_ALL);
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Facebook\Facebook;
+use Facebook\Exceptions\FacebookResponseException;
+use Facebook\Exceptions\FacebookSDKException;
 use Exception;
 
 
@@ -41,23 +43,14 @@ class FacebookAuthController extends Controller
             //'default_access_token' => '{access-token}', // optional
         ]);
 
+        $redirectUrl =  $config['URL_CALLBACK_FACEBOOK'];
+        $permissions = ['email', 'user_likes'];
 
-        try {
-            // Get the \Facebook\GraphNodes\GraphUser object for the current user.
-            // If you provided a 'default_access_token', the '{access-token}' is optional.
-            $response = $fb->get('/me');
-        } catch (Facebook\Exceptions\FacebookResponseException $e) {
-            // When Graph returns an error
-            echo 'Graph returned an error: ' . $e->getMessage();
-            exit;
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            // When validation fails or other local issues
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
-        }
+        $helper = $fb->getRedirectLoginHelper();
+        $loginUrl = $helper->getLoginUrl($redirectUrl, $permissions);
+        //echo '<a href="' . htmlspecialchars($loginUrl) . '">Iniciar sesión con Facebook</a>';
 
-        $me = $response->getGraphUser();
-        echo 'Logged in as ' . $me->getName();
+        echo json_encode(['url' => $loginUrl]);
     }
 
 
@@ -65,24 +58,55 @@ class FacebookAuthController extends Controller
     {
 
         global $config;
+
+
+        $app_id     = $config['APP_ID_FACEBOOK'];
+        $app_secret  = $config['APP_SECRET_FACEBOOK'];
+
+
+
+        $fb = new Facebook([
+            'app_id' => $app_id,
+            'app_secret' => $app_secret,
+            'default_graph_version' => 'v16.0',
+        ]);
+
+        $redirectUrl =  $config['URL_CALLBACK_FACEBOOK'];
+        $helper = $fb->getRedirectLoginHelper();
+    
         try {
-            $apiKey         = $config['TWITTER_API_KEY'];
-            $apiSecret      = $config['TWITTER_API_SECRET'];
-            $oauthToken     = $_POST['oauth_token'];
-            $oauthVerifier  = $_POST['oauth_verifier'];
-            $twitterClient  = new TwitterOAuth($apiKey, $apiSecret, $oauthToken, $oauthVerifier);
-            $accessToken    = $twitterClient->oauth('oauth/access_token', ['oauth_verifier' => $oauthVerifier]);
-
-            $_SESSION['screen_name']        = $accessToken['screen_name'];
-            $_SESSION['oauth_token']        = $accessToken['oauth_token'];
-            $_SESSION['oauth_token_secret'] = $accessToken['oauth_token_secret'];
-            $accessToken['data_user']       = $this->get_data_user_twtter($_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
-
-            echo json_encode($accessToken);
-        } catch (Exception $error) {
-            http_response_code(500);
-            echo json_encode(['message' => $error->getMessage()]);
+            $accessToken = $helper->getAccessToken($redirectUrl);
+        } catch (FacebookResponseException $e) {
+            echo 'Graph returned an error: ' . $e->getMessage();
+            exit;
+        } catch (FacebookSDKException $e) {
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;
         }
+
+        if (!isset($accessToken)) {
+            if ($helper->getError()) {
+                header('HTTP/1.0 401 Unauthorized');
+                echo "Error: " . $helper->getError() . "\n";
+                echo "Error Code: " . $helper->getErrorCode() . "\n";
+                echo "Error Reason: " . $helper->getErrorReason() . "\n";
+                echo "Error Description: " . $helper->getErrorDescription() . "\n";
+            } else {
+                header('HTTP/1.0 400 Bad Request');
+                echo 'Bad request';
+            }
+            exit;
+        }
+
+        // Logged in.
+        echo '<h3>Access Token</h3>';
+        var_dump($accessToken->getValue());
+
+        // Optional: Get a long-lived access token.
+        $oAuth2Client = $fb->getOAuth2Client();
+        $longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
+        echo '<h3>Long-lived Access Token</h3>';
+        var_dump($longLivedAccessToken->getValue());
     }
 
 

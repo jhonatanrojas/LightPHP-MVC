@@ -20,7 +20,8 @@ $config['TWITTER_API_SECRET'] = 'tJWgvwkFCpLrZgPoIZHsTMLVtMsmQmi5NjfurXJQeG8zLAg
 //AOuth2
 $config['TWTTER_CLIENTE_SECRET']='72eVSXjJ8jKbTHyWY5eAHV6rMGK-INrzmaDKPQHmHGaTxXIjZh';
 $config['TWITTER_API_KEYSECRET'] = 'MUc4WmRxQ0dYY1I2cGVKQUZBb3Y6MTpjaQ';
-$config['TWTTER_CALLBACK_URL']='http://localhost:4000/auth_twitter';
+$config['TWTTER_CALLBACK_URL']='https://app.api.neptunove.site/auth_twitter';
+$config['URL_CALLBACK_FACEBOOK']='https://api.neptunove.site/?url=FacebookAuth/callback';
 
 //FACRBOOK
 $config['APP_ID_FACEBOOK']='555977850002156';
