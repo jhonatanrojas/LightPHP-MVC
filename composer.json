@@ -11,7 +11,8 @@
 
 			"controllers\\":"controllers/",
 			"core\\":"core/",
-			"models\\":"models/"
+			"models\\":"models/",
+			"lib\\":"lib/"
 		}
 	}
 }

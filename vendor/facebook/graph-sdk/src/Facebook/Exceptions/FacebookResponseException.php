@@ -190,7 +190,7 @@ class FacebookResponseException extends FacebookSDKException
     public function getRawResponse()
     {
         return $this->response->getBody();
-    }
+    } 
 
     /**
      * Returns the decoded response used to create the exception.

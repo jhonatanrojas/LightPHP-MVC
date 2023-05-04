@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'models\\' => array($baseDir . '/models'),
+    'lib\\' => array($baseDir . '/lib'),
     'core\\' => array($baseDir . '/core'),
     'controllers\\' => array($baseDir . '/controllers'),
     'SendGrid\\Stats\\' => array($vendorDir . '/sendgrid/sendgrid/lib/stats'),

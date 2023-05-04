@@ -541,7 +541,7 @@ class Facebook
     /**
      * Factory to create FacebookVideo's.
      *
-     * @param string $pathToFile
+     * @param string $pathToFile 
      *
      * @return FacebookVideo
      *

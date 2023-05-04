@@ -1,17 +1,21 @@
 <?php
 
 namespace controllers;
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: *');
+header('Access-Control-Allow-Credentials: true');
+
+
 use core\Controller;
-use controllers\ImageUploader;
+use lib\ImageUploader;
 
-
+ 
 
 
 ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1); 
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 class ImageUploaderController extends Controller
@@ -25,13 +29,14 @@ class ImageUploaderController extends Controller
 
     public function index()
     {
-       
+
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
             // Responde con una respuesta vacía para las solicitudes de método OPTIONS
             http_response_code(200);
             exit();
         }
         if ($_FILES) {
+            header('Content-Type: application/json');
             $file = $_FILES['file'];
 
             try {
@@ -45,5 +50,16 @@ class ImageUploaderController extends Controller
             http_response_code(400);
             echo json_encode(['status' => 'error', 'message' => 'No file received.']);
         }
+    }
+
+    public function eliminar()
+    {
+
+        $filename = $_POST['filename'];
+
+        unlink(__DIR__ . '/../uploads/' . $filename);
+
+
+        echo json_encode(['success' => true]);
     }
 }

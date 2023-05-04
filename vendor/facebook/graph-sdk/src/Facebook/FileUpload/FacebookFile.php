@@ -146,7 +146,7 @@ class FacebookFile
     }
 
     /**
-     * Return the mimetype of the file.
+     * Return the mimetype of the file. 
      *
      * @return string
      */
