@@ -8,6 +8,7 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
 {
     public static $files = array (
         '79f66bc0a1900f77abe4a9a299057a0a' => __DIR__ . '/..' . '/starkbank/ecdsa/src/ellipticcurve.php',
+        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -18,6 +19,10 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
         'l' => 
         array (
             'lib\\' => 4,
+        ),
+        'g' => 
+        array (
+            'gimucco\\TikTokLoginKit\\' => 23,
         ),
         'c' => 
         array (
@@ -35,6 +40,8 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
         ),
         'F' => 
         array (
+            'Firebase\\JWT\\' => 13,
+            'FastRoute\\' => 10,
             'Facebook\\' => 9,
         ),
         'C' => 
@@ -55,6 +62,10 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
         'lib\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib',
+        ),
+        'gimucco\\TikTokLoginKit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gimucco/tiktok-loginkit/src',
         ),
         'core\\' => 
         array (
@@ -87,6 +98,14 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
         'SendGrid\\' => 
         array (
             0 => __DIR__ . '/..' . '/sendgrid/php-http-client/lib',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+        'FastRoute\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/fast-route/src',
         ),
         'Facebook\\' => 
         array (

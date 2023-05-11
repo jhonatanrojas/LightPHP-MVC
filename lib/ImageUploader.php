@@ -9,7 +9,9 @@ class ImageUploader
 
     public function __construct(
         $uploadDirectory = null,
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'],
+        //permitir imagenes y videos
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov'],
+
         $maxFileSize = 10485760 // 10 MB
     ) {
         $this->uploadDirectory = $uploadDirectory === null ? __DIR__ . '/../uploads/' : $uploadDirectory;

@@ -14,9 +14,9 @@ class Database extends \PDO
         	
 				parent::__construct('pgsql: host='.$config['host'].'; dbname='.$config['dbname'],$config['dbuser'], $config['dbpass']);
 				$this -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$this -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+				$this -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false); 
      
-    }
+    } 
 
    
     

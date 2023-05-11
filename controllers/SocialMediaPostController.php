@@ -19,13 +19,14 @@ class SocialMediaPostController extends Controller
 
     public function index()
     {
-        // Verifica si la solicitud es de tipo POST
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+     
 
             // Obtiene los datos de la publicación a partir de la solicitud
             $text = $_POST['text'];
+         
             $images = !empty($_POST['images']) ? explode(',', $_POST['images']) : [];
-
+            $videos = !empty($_POST['videos']) ? explode(',', $_POST['videos']) : [];
  
             $platforms = json_decode($_POST['platforms'], true);
 
@@ -37,11 +38,16 @@ class SocialMediaPostController extends Controller
                         $response = $this->postSocialMedia->postToFacebook(
                             $text,
                             $images,
+                            $videos,
                             $platform['accessToken']
                         );
-                        $results['Facebook'] = $response['result'];
-                        $results['FacebookMessage'] = $response['message'];
-                        $results['FacebookError'] = $response['error'];
+                        $results[]=[
+                            'platform' => 'Facebook',
+                            'result' => $response['result'],
+                            'message' => $response['message'],
+                            'error' => $response['error']
+                        ];
+                    
                         break;
 
                     case 'Twitter':
@@ -52,12 +58,29 @@ class SocialMediaPostController extends Controller
                             $platform['accessTokenSecret']
                         );
                         
-                      //                return ['result' => true, 'message' => 'Tweet publicado correctamente',  $response];
-                        $results['Twitter'] = $response['result'];
-                        $results['TwitterMessage'] = $response['message'];
-                        $results['TwitterError'] = $response['error'];
+                        $results[]=[
+                            'platform' => 'Twitter',
+                            'result' => $response['result'],
+                            'message' => $response['message'],
+                            'error' => $response['error']
+                        ];
                         break;
 
+                        case 'Instagram':
+                            $response = $this->postSocialMedia->postToInstagram(
+                                $text,
+                                $images,
+                                $platform['accessToken'],
+                                $platform['userId'],
+                            );
+                            
+                            $results[]=[
+                                'platform' => 'Instagram',
+                                'result' => $response['result'],
+                                'message' => $response['message'],
+                                'error' => $response['error']
+                            ];
+                            break;
                     // Añade otros casos para otras plataformas aquí
                 }
             }
@@ -68,10 +91,6 @@ class SocialMediaPostController extends Controller
                 'success' => true,
                 'results' => $results,
             ]);
-        } else {
-            // En caso de que no sea una solicitud POST, devuelve un error 405 (Method Not Allowed)
-            header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: POST');
-        }
+        
     }
 }

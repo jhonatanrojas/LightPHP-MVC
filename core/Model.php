@@ -20,15 +20,12 @@ class Model
     public function __construct()
     {
         $this->db = new Database();
-        $this->db_administrador = new DatabaseAdmin();
+       
     }
+ 
+  
 
-    public function conexion_empresa($host,$dbname,$dbuser,$dbpass){
-
-      return new DatabaseEmpresa($host,$dbname,$dbuser,$dbpass);
-    }
-
-
+ 
     public function campos($array)
     {
 
