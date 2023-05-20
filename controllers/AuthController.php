@@ -1,6 +1,6 @@
 <?php
 
-namespace controllers;
+namespace controllers\SocialMedia\Auth;
 
 use core\Controller;
 
@@ -67,7 +67,7 @@ class AuthController extends Controller
       $email     = $dataObject->email;
       $password  = $dataObject->password;
 
-      $result_consulta =  $this->userModel->get_user($email);
+      $result_consulta =  $this->userModel->getUser($email);
 
       if ($result_consulta) {
 

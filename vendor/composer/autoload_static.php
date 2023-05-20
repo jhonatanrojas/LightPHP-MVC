@@ -9,16 +9,17 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
     public static $files = array (
         '79f66bc0a1900f77abe4a9a299057a0a' => __DIR__ . '/..' . '/starkbank/ecdsa/src/ellipticcurve.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'services\\' => 9,
+        ),
         'm' => 
         array (
             'models\\' => 7,
-        ),
-        'l' => 
-        array (
-            'lib\\' => 4,
         ),
         'g' => 
         array (
@@ -38,11 +39,28 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
             'SendGrid\\Contacts\\' => 18,
             'SendGrid\\' => 9,
         ),
+        'P' => 
+        array (
+            'Psr\\Container\\' => 14,
+            'PhpDocReader\\' => 13,
+        ),
+        'L' => 
+        array (
+            'Laravel\\SerializableClosure\\' => 28,
+        ),
+        'I' => 
+        array (
+            'Invoker\\' => 8,
+        ),
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
             'FastRoute\\' => 10,
             'Facebook\\' => 9,
+        ),
+        'D' => 
+        array (
+            'DI\\' => 3,
         ),
         'C' => 
         array (
@@ -55,13 +73,13 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
     );
 
     public static $prefixDirsPsr4 = array (
+        'services\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/services',
+        ),
         'models\\' => 
         array (
             0 => __DIR__ . '/../..' . '/models',
-        ),
-        'lib\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/lib',
         ),
         'gimucco\\TikTokLoginKit\\' => 
         array (
@@ -99,6 +117,22 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
         array (
             0 => __DIR__ . '/..' . '/sendgrid/php-http-client/lib',
         ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PhpDocReader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
+        ),
+        'Laravel\\SerializableClosure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
+        ),
+        'Invoker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/invoker/src',
+        ),
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
@@ -110,6 +144,10 @@ class ComposerStaticInit3ba7a62a39a5e36056dbebde813798b8
         'Facebook\\' => 
         array (
             0 => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook',
+        ),
+        'DI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/php-di/src',
         ),
         'Composer\\CaBundle\\' => 
         array (

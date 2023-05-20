@@ -22,7 +22,7 @@ class SocialAccessTokenModel extends Model
 
     }
 
-    public function  get_access($id_user)
+    public function  getAccess(int $id_user) : array
 
     {
  
@@ -39,11 +39,17 @@ class SocialAccessTokenModel extends Model
         return [];
     }
 
-    public function insertar($id_user, $id_user_red, $red_social, $user_name, $img_perfil, $access_token){
+    public function insert(array $datos)
+    {
 
-        $sql="insert into socials_access_tokens (id_user, id_user_red, red_social, user_name, img_perfil, access_token) values (?,?,?,?,?,?) ";
+        $campos = $this->campos($datos);
+        $values = $this->valores($datos);
+        $asignacion = $this->asignacion($values);
+
+
+        $sql = "INSERT INTO socials_access_tokens  ($campos) VALUES ($asignacion)";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$id_user, $id_user_red, $red_social, $user_name, $img_perfil, $access_token]);
+        $stmt->execute($values);
     }
   
 

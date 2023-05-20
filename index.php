@@ -9,7 +9,7 @@ require 'recursos.php';
 
 
 require 'vendor/autoload.php';
+require 'config/services.php';
 
-
-$core = new core\Core();
+$core = new core\Core($container);
 $core->run();

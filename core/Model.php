@@ -26,13 +26,13 @@ class Model
   
 
  
-    public function campos($array)
+    public function campos(array $array) 
     {
 
         return implode(",",  array_keys($array));
     }
 
-    public function campos_update($array)
+    public function campos_update(array $array) : string
     {
         $array=array_keys($array);
         $campos="";
@@ -51,7 +51,7 @@ class Model
     }
 
 
-    public function valores($array)
+    public function valores($array) : array
     {
         return  array_values($array);
         

@@ -22,7 +22,7 @@ class UserModel extends Model
 
     }
 
-    public function  get_user($username)
+    public function  getUser (string $username)
 
     {
  
@@ -39,11 +39,6 @@ class UserModel extends Model
         return 0;
     }
   
-    public function insertar(){
-
-        $sql="insert into users (username,password) values ('jhonatan@practisis.com','12345678') ";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-    }
+ 
 
 }

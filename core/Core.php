@@ -6,17 +6,24 @@ use controllers\NotFoundController;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
-
-use Exception;
+use DI\Container;
 
 class Core
 {
 	private $router;
+	private $container;
+
+
+	public function __construct(Container $container)
+    {
+		$this->container = $container;
+    }
 
 
 	public function run()
 	{
 		$routes = require __DIR__ . '/../routes.php'; // Asegúrate de que la ruta sea la correcta.
+
 
 
 
@@ -65,8 +72,8 @@ class Core
 				$controllerClass = "\\controllers\\" . $handler[0];
 				$method = $handler[1];
 				if (class_exists($controllerClass)) {
-					$controller = new $controllerClass();
-					call_user_func_array(array($controller, $method), $vars);
+					$controller = $this->container->get($controllerClass);
+                    call_user_func_array(array($controller, $method), $vars);
 				} else {
 					echo "Controller class $controllerClass not found";
 				}

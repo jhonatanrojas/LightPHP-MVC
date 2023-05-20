@@ -5,7 +5,8 @@
 		"facebook/graph-sdk": "^5.1",
 		"firebase/php-jwt": "^6.4",
 		"nikic/fast-route": "^1.3",
-		"gimucco/tiktok-loginkit": "^0.4.1"
+		"gimucco/tiktok-loginkit": "^0.4.1",
+		"php-di/php-di": "^6.0"
 
 
 	},
@@ -15,7 +16,8 @@
 			"controllers\\":"controllers/",
 			"core\\":"core/",
 			"models\\":"models/",
-			"lib\\":"lib/"
+			"services\\":"services/",
+			"repositories\\":"repositories/"
 		}
 	}
 }
