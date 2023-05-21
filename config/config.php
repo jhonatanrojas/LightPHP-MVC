@@ -2,7 +2,8 @@
 require_once 'vendor/autoload.php';
 require 'environment.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+
+$dotenv = Dotenv\Dotenv::createImmutable(PROJECT_ROOT.'/backend');
 $dotenv->load();
 
 define("BASE_URL", "http://localhost/backendComparteYa/");
@@ -28,4 +29,4 @@ define('DB_PASS', getenv('DB_PASS'));
 
 define('TOKEN_AUTH', getenv('TOKEN_AUTH'));
 
-define('PROJECT_ROOT', dirname(__DIR__));
+
