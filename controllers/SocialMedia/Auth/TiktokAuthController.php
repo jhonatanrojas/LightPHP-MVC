@@ -27,10 +27,11 @@ class TiktokAuthController extends Controller
 
     public function index()
     {
-        global $config;
-        $client_id      = $config['CLIENT_ID_TIKTOK'];
-        $client_secret  = $config['CLIENT_SECRET_TIKTOK'];
-        $redirect_uri   = $config['URL_CALLBACK_TIKTOK'];
+       
+        //
+        $client_id      =  $_ENV['CLIENT_ID_TIKTOK'];
+        $client_secret  =  $_ENV['CLIENT_SECRET_TIKTOK'];
+        $redirect_uri   =  $_ENV['URL_CALLBACK_TIKTOK'];
         
         $_TK = new Connector($client_id, $client_secret, $redirect_uri);
 
@@ -48,11 +49,9 @@ class TiktokAuthController extends Controller
     public  function callback()
     {
 
-        global $config;
 
-
-        $app_id     = $config['APP_ID_FACEBOOK'];
-        $app_secret  = $config['APP_SECRET_FACEBOOK'];
+        $app_id     =  $_ENV['APP_ID_FACEBOOK']; 
+        $app_secret  =  $_ENV['APP_SECRET_FACEBOOK'];
 
 
 
@@ -62,7 +61,7 @@ class TiktokAuthController extends Controller
             'default_graph_version' => 'v16.0',
         ]);
 
-        $redirectUrl =  $config['URL_CALLBACK_FACEBOOK'];
+        $redirectUrl =  $_ENV['URL_CALLBACK_FACEBOOK'];
         $helper = $fb->getRedirectLoginHelper();
     
         try {
@@ -104,9 +103,8 @@ class TiktokAuthController extends Controller
     public function get_data_user_twtter($oauthToken, $oauthVerifier)
     {
 
-        global $config;
-        $apiKey     = $config['TWITTER_API_KEY'];
-        $apiSecret  = $config['TWITTER_API_SECRET'];
+        $apiKey     =  $_ENV['TWITTER_API_KEY'];
+        $apiSecret  =  $_ENV['TWITTER_API_SECRET'];
 
 
         try {

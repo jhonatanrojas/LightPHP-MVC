@@ -6,7 +6,8 @@
 		"firebase/php-jwt": "^6.4",
 		"nikic/fast-route": "^1.3",
 		"gimucco/tiktok-loginkit": "^0.4.1",
-		"php-di/php-di": "^6.0"
+		"php-di/php-di": "^6.0",
+		"vlucas/phpdotenv": "^5.5"
 
 
 	},

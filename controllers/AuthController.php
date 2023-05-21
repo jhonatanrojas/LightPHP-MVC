@@ -33,8 +33,8 @@ class AuthController extends Controller
 
   function __construct(UserRepositoryInterface $userRepository)
   {
-    global $config;
-    $this->jwtAuth  = new JwtAuth($config['token_auth']);
+   
+    $this->jwtAuth  = new JwtAuth( $_ENV['SECRET_KEY_JWT']);
 
     $this->socialAccessTokenModel = new SocialAccessTokenModel();
     $this->userRepository = $userRepository;

@@ -13,15 +13,15 @@ class SocialMediaPost
     public function __construct()
     {
 
-        global $config;
+   
         // Inicializa la API de Facebook
         $this->facebook = new Facebook([
-            'app_id' => $config['APP_ID_FACEBOOK'],
-            'app_secret' => $config['APP_SECRET_FACEBOOK'],
+            'app_id' => getenv('APP_ID_FACEBOOK'),
+            'app_secret' => getenv('APP_SECRET_FACEBOOK'),
             'default_graph_version' => 'v16.0',
         ]);
-        $apiKey         = $config['TWITTER_API_KEY'];
-        $apiSecret      = $config['TWITTER_API_SECRET'];
+        $apiKey         = getenv('TWITTER_API_KEY');
+        $apiSecret      = getenv('TWITTER_API_SECRET');
         // Inicializa la API de Twitter
         $this->twitter = new TwitterOAuth(
             $apiKey,

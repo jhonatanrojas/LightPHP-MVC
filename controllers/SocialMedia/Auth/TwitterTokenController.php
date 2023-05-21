@@ -24,9 +24,9 @@ class TwitterTokenController extends Controller
 
     public function index()
     {
-        global $config;
-        $apiKey     = $config['TWITTER_API_KEY'];
-        $apiSecret  = $config['TWITTER_API_SECRET'];
+       
+        $apiKey     =  $_ENV['TWITTER_API_KEY'];
+        $apiSecret  =  $_ENV['TWITTER_API_SECRET'];
 
 
         $twitterClient = new TwitterOAuth($apiKey, $apiSecret);
@@ -46,10 +46,10 @@ class TwitterTokenController extends Controller
     public  function callback()
     {
 
-        global $config;
+        
         try {
-            $apiKey         = $config['TWITTER_API_KEY'];
-            $apiSecret      = $config['TWITTER_API_SECRET'];
+            $apiKey         =  $_ENV['TWITTER_API_KEY'];
+            $apiSecret      =  $_ENV['TWITTER_API_SECRET'];
             $oauthToken     = $_POST['oauth_token'];
             $oauthVerifier  = $_POST['oauth_verifier'];
             $twitterClient  = new TwitterOAuth($apiKey, $apiSecret, $oauthToken, $oauthVerifier);
@@ -71,10 +71,10 @@ class TwitterTokenController extends Controller
     public function post_twiiter()
     {
 
-        global $config;
+      
         try {
-            $apiKey         =  $config['TWITTER_API_KEY'];
-            $apiSecret      =  $config['TWITTER_API_SECRET'];
+            $apiKey         =  $_ENV['TWITTER_API_KEY'];
+            $apiSecret      =  $_ENV['TWITTER_API_SECRET'];
             $oauthToken     =  $_SESSION['screen_name'];
             $oauthVerifier  =  $_SESSION['oauth_token_secret'];
             $connection     =  new TwitterOAuth($apiKey, $apiSecret, $oauthToken, $oauthVerifier);
@@ -101,9 +101,9 @@ class TwitterTokenController extends Controller
 
     public function get_data_user_twtter( $oauthToken,$oauthVerifier){
 
-        global $config;
-        $apiKey     = $config['TWITTER_API_KEY'];
-        $apiSecret  = $config['TWITTER_API_SECRET'];
+       
+        $apiKey         =  $_ENV['TWITTER_API_KEY'];
+        $apiSecret     =  $_ENV['TWITTER_API_SECRET'];
    
   
         try {

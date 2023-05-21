@@ -30,9 +30,9 @@ class FacebookAuthController extends Controller
 
     public function index()
     {
-        global $config;
-        $app_id     = $config['APP_ID_FACEBOOK'];
-        $app_secret  = $config['APP_SECRET_FACEBOOK'];
+       
+        $app_id     = $_ENV['APP_ID_FACEBOOK']; 
+        $app_secret  = $_ENV['APP_SECRET_FACEBOOK']; 
 
         $default_graph_version  = 'V16.0';
 
@@ -43,7 +43,7 @@ class FacebookAuthController extends Controller
             //'default_access_token' => '{access-token}', // optional
         ]);
 
-        $redirectUrl =  $config['URL_CALLBACK_FACEBOOK'];
+        $redirectUrl =   $_ENV['URL_CALLBACK_FACEBOOK']; 
         $permissions = ['email', 'user_likes'];
 
         $helper = $fb->getRedirectLoginHelper();
@@ -57,11 +57,11 @@ class FacebookAuthController extends Controller
     public  function callback()
     {
 
-        global $config;
+      
 
 
-        $app_id     = $config['APP_ID_FACEBOOK'];
-        $app_secret  = $config['APP_SECRET_FACEBOOK'];
+        $app_id     =  $_ENV['APP_ID_FACEBOOK']; 
+        $app_secret  =  $_ENV['APP_SECRET_FACEBOOK'];
 
 
 
@@ -71,7 +71,7 @@ class FacebookAuthController extends Controller
             'default_graph_version' => 'v16.0',
         ]);
 
-        $redirectUrl =  $config['URL_CALLBACK_FACEBOOK'];
+        $redirectUrl =   $_ENV['URL_CALLBACK_FACEBOOK'];
         $helper = $fb->getRedirectLoginHelper();
     
         try {
@@ -113,9 +113,9 @@ class FacebookAuthController extends Controller
     public function get_data_user_twtter($oauthToken, $oauthVerifier)
     {
 
-        global $config;
-        $apiKey     = $config['TWITTER_API_KEY'];
-        $apiSecret  = $config['TWITTER_API_SECRET'];
+       
+        $apiKey     =  $_ENV['TWITTER_API_KEY'];
+        $apiSecret  =  $_ENV['TWITTER_API_SECRET'];
 
 
         try {
