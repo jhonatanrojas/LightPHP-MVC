@@ -11,11 +11,14 @@ $containerBuilder->addDefinitions([
     'repositories\socialMedia\SocialAccessTokenRepositoryInterface' => function () {
         return new \repositories\socialMedia\SocialAccessTokenRepository(new \models\SocialAccessTokenModel());
     },
+    'repositories\UserRepositoryInterface' => function () {
+        return new \repositories\UserRepository(new \models\UserModel());
+    },
     'services\FileUploaderInterface' => function () {
         return new \services\FileUploader();
     },
     
-    
+ 
 ]);
 
 $container = $containerBuilder->build();

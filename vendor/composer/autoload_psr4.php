@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'services\\' => array($baseDir . '/services'),
+    'repositories\\' => array($baseDir . '/repositories'),
     'models\\' => array($baseDir . '/models'),
     'gimucco\\TikTokLoginKit\\' => array($vendorDir . '/gimucco/tiktok-loginkit/src'),
     'core\\' => array($baseDir . '/core'),
