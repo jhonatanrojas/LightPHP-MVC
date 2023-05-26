@@ -14,11 +14,20 @@
 	"autoload":{
 		"psr-4":{
 
-			"controllers\\":"controllers/",
+			"controllers\\":"app/controllers/",
 			"core\\":"core/",
-			"models\\":"models/",
-			"services\\":"services/",
-			"repositories\\":"repositories/"
+			"models\\":"app/models/",
+			"services\\":"app/services/",
+			"repositories\\":"app/repositories/",
+			"exceptions\\":"app/exceptions/"
+			
 		}
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^10.1"
+	},
+	"scripts": {
+		"test": "phpunit"
 	}
+	
 }

@@ -36,7 +36,7 @@ class UserModel extends Model
             $row =   $stmt->fetch(PDO::FETCH_ASSOC);
             return $row;
         }
-        return false;
+        return [];
     }
   
  

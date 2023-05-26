@@ -10,23 +10,12 @@ class SocialMediaPost
     private $facebook;
     private $twitter;
 
-    public function __construct()
+    public function __construct(Facebook $facebook, TwitterOAuth $twitter)
     {
 
-   
-        // Inicializa la API de Facebook
-        $this->facebook = new Facebook([
-            'app_id' => getenv('APP_ID_FACEBOOK'),
-            'app_secret' => getenv('APP_SECRET_FACEBOOK'),
-            'default_graph_version' => 'v16.0',
-        ]);
-        $apiKey         = getenv('TWITTER_API_KEY');
-        $apiSecret      = getenv('TWITTER_API_SECRET');
-        // Inicializa la API de Twitter
-        $this->twitter = new TwitterOAuth(
-            $apiKey,
-            $apiSecret
-        );
+        $this->facebook = $facebook;
+        $this->twitter = $twitter;
+    
     }
 
     public function postToFacebook(string $text,array $imageNames,array $videoNames, string $accessToken) :array

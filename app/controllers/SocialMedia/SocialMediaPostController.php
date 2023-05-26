@@ -3,7 +3,8 @@
 namespace controllers\SocialMedia;
 use core\Controller;
 use services\SocialMediaPost;
-
+use Facebook\Facebook;
+use Abraham\TwitterOAuth\TwitterOAuth;
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -14,7 +15,20 @@ class SocialMediaPostController extends Controller
 
     public function __construct()
     {
-        $this->postSocialMedia = new SocialMediaPost();
+            // Inicializa la API de Facebook
+            $facebook = new Facebook([
+                'app_id' => getenv('APP_ID_FACEBOOK'),
+                'app_secret' => getenv('APP_SECRET_FACEBOOK'),
+                'default_graph_version' => 'v16.0',
+            ]);
+            $apiKey         = getenv('TWITTER_API_KEY');
+            $apiSecret      = getenv('TWITTER_API_SECRET');
+            // Inicializa la API de Twitter
+            $twitter = new TwitterOAuth(
+                $apiKey,
+                $apiSecret
+            );
+        $this->postSocialMedia = new SocialMediaPost($facebook,$twitter);
     }
 
     public function index()

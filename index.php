@@ -2,7 +2,7 @@
 session_start();
 define('PROJECT_ROOT', dirname(__DIR__));
 require 'vendor/autoload.php';
-require 'helpers/funciones.php';
+require 'app/helpers/funciones.php';
 require 'config/config.php';
 require 'recursos.php';
 

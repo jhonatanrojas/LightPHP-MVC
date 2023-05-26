@@ -24,7 +24,7 @@ abstract class Controller
 	public function loadView ($viewName, $viewData = array())
 	{
 		extract($viewData);				// Transforms array keys into variables
-		require 'views/'.$viewName.'.php';
+		require 'app/views/'.$viewName.'.php';
 	}
 
 	/**
@@ -36,6 +36,6 @@ abstract class Controller
 	public function loadTemplate ($viewName, $viewData = array())
 	{
 		extract($viewData);				// Transforms array keys into variables
-		require 'views/template.php';
+		require 'app/views/template.php';
 	}
 }
