@@ -33,9 +33,106 @@ es proyecto ligero que te permite escalar cualquier aplicacion
 5. Ejecuta el servidor de desarrollo de PHP con `php -S localhost:8000` (o cualquier puerto de tu elección).
 6. Abre tu navegador y navega a `http://localhost:8000` para ver la aplicación en acción.
 
-## Inyección de Dependencias
 
-## Contribuir
+# Aquí se muestra cómo configurar la clase User, que extiende de la clase Model:
+```
+<?php
+
+require_once 'Model.php';
+
+class User extends Model {
+    protected $table = 'users';
+
+    public function posts() {
+        $postModel = new Post();
+        return $postModel->where('user_id', $this->id)->get();
+    }
+}
+
+```
+
+- En este caso, configuramos la tabla a la que se aplica la clase User (users), y creamos un método (posts) que obtiene todas las publicaciones de un usuario.
+
+Ahora puedes usar la clase User para hacer consultas relacionadas con los usuarios. Aquí hay algunos ejemplos:
+
+ ## Métodos Disponibles:
+`insert(array $data): Model`
+- Este método inserta una nueva fila en la base de datos utilizando la información proporcionada en $data.
+
+Ejemplo:
+```
+$userModel = new User();
+$userModel->insert(['name' => 'John', 'email' => 'john@example.com']);
+
+```
+
+`update(array $data, array $conditions): Model`
+ - Este método actualiza una fila en la base de datos que cumple con las condiciones proporcionadas.
+
+Ejemplo:
+``` $userModel = new User();
+$userModel->update(['email' => 'john.doe@example.com'], ['id' => 1]);
+
+```
+
+`delete(array $conditions): Model`
+- Este método elimina una fila de la base de datos que cumple con las condiciones proporcionadas.
+
+Ejemplo
+```
+$userModel = new User();
+$userModel->delete(['id' => 1]);
+```
+`where(string $field, mixed $value): Model`
+Este método agrega una condición a la próxima consulta.
+
+Ejemplo:
+```
+$userModel = new User();
+$user = $userModel->where('id', 1)->first();
+```
+
+`first(): array`
+Este método devuelve la primera fila que cumple con las condiciones previamente establecidas con el método where.
+
+Ejemplo:
+```
+$userModel = new User();
+$user = $userModel->where('id', 1)->first();
+```
+
+`get(): array`
+Este método devuelve todas las filas que cumplen con las condiciones previamente establecidas con el método where.
+
+Ejemplo:
+```
+$userModel = new User();
+$users = $userModel->where('email', 'like', '%@example.com%')->get();
+```
+
+`limit(int $limit): Model`
+Este método limita el número de filas devueltas por el método get.
+
+Ejemplo:
+```
+$userModel = new User();
+$users = $userModel->limit(10)->get();
+
+```
+`query(string $sql, array $params = []): array`
+Este método ejecuta una consulta SQL directamente en la base de datos.
+
+Ejemplo:
+```
+$userModel = new User();
+$results = $userModel->query("SELECT * FROM users WHERE id = ?", [1]);
+
+```
+
+php
+
+## Inyección de Dependencias
+ 
 Para agregar una nueva inyección de dependencia, debes modificar el archivo config/services.php. Este archivo es donde se definen todas las dependencias que se pueden inyectar en tu aplicación.
 
 Aquí tienes un ejemplo de cómo agregar una nueva dependencia:
@@ -98,6 +195,7 @@ public function createPost(Request $request)
 ```
 ## Licencia
 
+## Contribuir
 Este proyecto está licenciado bajo los términos de la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
 
 
