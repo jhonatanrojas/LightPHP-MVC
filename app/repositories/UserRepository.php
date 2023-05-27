@@ -2,13 +2,13 @@
 
 namespace repositories;
 
-use models\userModel;
+use models\User;
 
 class UserRepository implements UserRepositoryInterface
 {
     private $model;
 
-    public function __construct(userModel $model)
+    public function __construct(User $model)
     {
         $this->model = $model;
     }

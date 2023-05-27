@@ -1,11 +1,12 @@
 <?php
 require_once 'vendor/autoload.php';
-require 'environment.php';
+
 
 
 $dotenv = Dotenv\Dotenv::createImmutable(PROJECT_ROOT.'/backend');
 $dotenv->load();
-
+define("APP_DEBUG",getenv('APP_DEBUG'));		// Local server
+//define("ENVIRONMENT", "production");		// Online server
 define("BASE_URL", "http://localhost/backendComparteYa/");
 
 // Twitter

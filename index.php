@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 define('PROJECT_ROOT', dirname(__DIR__));
 require 'vendor/autoload.php';
@@ -8,5 +9,11 @@ require 'recursos.php';
 
 require 'config/services.php';
 
+
+
+
+
 $core = new core\Core($container);
+
 $core->run();
+

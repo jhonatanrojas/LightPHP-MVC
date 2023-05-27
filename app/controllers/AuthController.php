@@ -5,7 +5,7 @@ namespace controllers;
 use core\Controller;
 
 use Exception;
-
+use core\Request;
 use models\SocialAccessTokenModel;
 use services\jwt\JwtAuth;
 use services\jwt\JwtDecoder;
@@ -32,19 +32,19 @@ class AuthController extends Controller
   public function index()
   {
 
+    $request = new Request(); 
 
-
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    if ($request->isMethod('OPTIONS')) {
       // Responde con una respuesta vacía para las solicitudes de método OPTIONS
       http_response_code(200);
       exit();
     }
        header('Content-Type: application/json');
-    if (isset($_POST['email'], $_POST['password'])) {
+    if ($request->input('email') && $request->input('password')) {
      
 
-      $email     = $_POST['email'];
-      $password  = $_POST['password'];
+      $email     = $request->input('email');
+      $password  = $request->input('password');
 
       $result_consulta = $this->userRepository->getUser($email);
 

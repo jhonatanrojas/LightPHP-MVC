@@ -36,14 +36,20 @@ class Request
         return $_SERVER[$key] ?? $default;
     }
 
-    public function isMethod($method)
+    public function isMethod(string $method)
     {
         return $this->server('REQUEST_METHOD') === strtoupper($method);
     }
 
     public function isJson()
     {
-        return strpos($this->header('Content-Type'), 'application/json') !== false;
+        $contentType = $this->header('Content-Type');
+    
+        if ($contentType !== null) {
+            return strpos($contentType, 'application/json') !== false;
+        }
+    
+        return false; // O realiza alguna otra acción adecuada en caso de que el valor sea nulo
     }
 
     public function validate(array $rules)

@@ -1,11 +1,12 @@
 <?php
 namespace core;
+use DebugBar\StandardDebugBar;
 
 
 /**
  * Class responsible for opening views.
  */
-abstract class Controller
+abstract class Controller  extends StandardDebugBar
 {
     //-----------------------------------------------------------------------
     //        Methods
@@ -38,4 +39,7 @@ abstract class Controller
 		extract($viewData);				// Transforms array keys into variables
 		require 'app/views/template.php';
 	}
+	
+	
+
 }

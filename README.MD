@@ -50,7 +50,7 @@ $containerBuilder->addDefinitions([
         return new \repositories\socialMedia\SocialAccessTokenRepository(new \models\SocialAccessTokenModel());
     },
     'repositories\UserRepositoryInterface' => function () {
-        return new \repositories\UserRepository(new \models\UserModel());
+        return new \repositories\UserRepository(new \models\());
     },
     'services\FileUploaderInterface' => function () {
         return new \services\FileUploader();
@@ -66,6 +66,36 @@ Cuando necesites inyectar una de estas dependencias en tu código, simplemente p
 
 Las contribuciones son bienvenidas. Por favor, abre un issue o un pull request si tienes algo que añadir o cambiar.
 
+## Uso de la clase Request
+La clase Request proporciona una forma sencilla de acceder a los datos de la solicitud HTTP entrante. Aquí tienes algunos ejemplos de cómo puedes usarla en tus controladores:
+```
+ use core\Request;
+
+public function createPost(Request $request)
+{
+    // Acceder a los datos de la consulta
+    $postId = $request->query('post_id');
+
+    // Acceder a los datos de la entrada (ya sea JSON o form-data)
+    $title = $request->input('title');
+
+    // Acceder a los encabezados de la solicitud
+    $contentType = $request->header('Content-Type');
+
+    // Comprobar el método de la solicitud
+    if ($request->isMethod('post')) {
+        // ...
+    }
+
+    // Validar los datos de entrada
+    $request->validate([
+        'title' => 'required',
+        'content' => 'required',
+    ]);
+
+    // ...
+}
+```
 ## Licencia
 
 Este proyecto está licenciado bajo los términos de la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
