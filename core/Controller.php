@@ -1,12 +1,12 @@
 <?php
 namespace core;
-use DebugBar\StandardDebugBar;
+
 
 
 /**
  * Class responsible for opening views.
  */
-abstract class Controller  extends StandardDebugBar
+abstract class Controller  
 {
     //-----------------------------------------------------------------------
     //        Methods

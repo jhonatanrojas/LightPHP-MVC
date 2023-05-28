@@ -37,7 +37,7 @@ class Model
 
     public function __construct()
     {
-        $this->db = new Database();
+        $this->db =  Database::getInstance();
 
 
 
@@ -333,50 +333,43 @@ class Model
         return $this; // Esto permite encadenar llamadas de método
     }
 
-    public function paginate(int $page, int $perPage)
+    public function paginate($perPage, $currentPage, $path='/')
     {
-        // Calcular el OFFSET
-        $offset = ($page - 1) * $perPage;
 
-        // Comenzar a construir la consulta SQL
-        $sql = "SELECT * FROM " . $this->table;
+        
+      
+        $path= $_ENV['URL_BASE'].$path;
 
-        // Agregar condiciones WHERE a la consulta, si existen
-        if (!empty($this->whereConditions)) {
-            $sql .= " WHERE ";
-            foreach ($this->whereConditions as $condition) {
-                list($field, $value, $operator) = $condition;
-                $sql .= "$field $operator ? AND ";
-            }
-            $sql = rtrim($sql, " AND "); // Elimina el último " AND " sobrante
-        }
-
-        // Agregar condiciones ORDER BY a la consulta, si existen
-        if (!empty($this->orderByConditions)) {
-            $sql .= " ORDER BY ";
-            foreach ($this->orderByConditions as $condition) {
-                list($field, $direction) = $condition;
-                $sql .= "$field $direction, ";
-            }
-            $sql = rtrim($sql, ", "); // Elimina la última coma sobrante
-        }
-
-        // Agregar las cláusulas LIMIT y OFFSET a la consulta
-        $sql .= " LIMIT ? OFFSET ?";
-
-        // Preparar y ejecutar la consulta
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(array_merge(array_column($this->whereConditions, 1), [$perPage, $offset]));
-
-
-        $this->lastQuery = $sql;
-
-        // Restablecer las condiciones para la próxima consulta
-        $this->whereConditions = [];
-        $this->orderByConditions = [];
-
-        return $stmt->fetchAll($this->result_pdo);
+        $total = $this->count();
+        $lastPage = ceil($total / $perPage);
+        $offset = ($currentPage - 1) * $perPage;
+    
+        $this->limit($perPage,$offset);
+        $data = $this->get();
+    
+        $prevPage = $currentPage - 1 > 0 ? $currentPage - 1 : null;
+        $nextPage = $currentPage + 1 <= $lastPage ? $currentPage + 1 : null;
+    
+        return [
+            "data" => $data,
+            "links" => [
+                "first" => "{$path}?page=1",
+                "last" => "{$path}?page={$lastPage}",
+                "prev" => $prevPage ? "{$path}?page={$prevPage}" : null,
+                "next" => $nextPage ? "{$path}?page={$nextPage}" : null
+            ],
+            "meta" => [
+                "current_page" => $currentPage,
+                "from" => $offset + 1,
+                "last_page" => $lastPage,
+                "path" => $path,
+                "per_page" => $perPage,
+                "to" => $offset + $perPage,
+                "total" => $total
+            ]
+        ];
     }
+    
 
     protected function buildJoins()
     {

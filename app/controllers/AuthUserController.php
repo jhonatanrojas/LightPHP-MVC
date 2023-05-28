@@ -9,7 +9,7 @@ use core\Request;
 use models\User;
 use models\Post;
 use models\SocialAccessTokenModel;
-
+use exceptions\ValidationException;
 use services\jwt\JwtAuth;
 use services\jwt\JwtDecoder;
 use repositories\UserRepositoryInterface;
@@ -85,6 +85,25 @@ class AuthUserController extends Controller
     // Crear una instancia de la clase Request
     $request = new Request();
 
+    
+    try {
+      $request->validate([
+          'name' => 'required',
+          'email' => 'required|unique:users',
+          'password' => 'required',
+          'birthdate' => 'required|date'
+      ]);
+
+      echo "aqui";
+    } catch (ValidationException $e) {
+      http_response_code(422);
+      // Aquí se manejan los errores de validación
+      // Por ejemplo, podrías redirigir de vuelta al formulario con los errores de validación
+      
+     $errors = $e->getErrors();
+     responseJson( $errors);
+      // Pasar los errores a la vista para mostrarlos al usuario
+  }
     // Obtener los datos de la solicitud
    /* $data = [
       'nombre' => $request->input('nombre'),
@@ -96,17 +115,7 @@ class AuthUserController extends Controller
 
     // Crear una instancia del modelo de usuario
     $userModel = new User();*/
-    $postModel = new Post();
-    $postModel->insert([
-      'titulo'=>'pruebas',
-      'restaurant_id' =>1,
-      'contenido' =>'contenido',
-      'imagen' =>'image',
-      'fecha_publicacion' =>date('Y-m-d'),
-      'url_publicacion'=>'image' ,
-      'aprobado'=>'false'
-
-    ]);
+ 
     // Intentar insertar el usuario en la base de datos
   /*  try {
       $userId = $userModel->insert($data);
@@ -138,12 +147,18 @@ class AuthUserController extends Controller
 //  $user   =$userModel->where('email', '%juan%','LIKE')->orderBy('id', 'ASC')->limit(10)->get();
   //$resultQuery= $userModel->query('SELECT * FROM users  WHERE id=? LIMIT 10',[1],true);   
   //$users = $userModel->where('id', true,'>')->orderBy('id', 'ASC')->paginate(1, 10);
-
+  $request = new Request();
   $postModel = new Post();
-$result = $postModel->count();
+  $perPage = 2; // Muestra 5 usuarios por página.
+  $currentPage =   $request->query('page') ?? 1; 
+  $path='/user';
 
-  //  $result = $userModel->last_query();
-    print_r(   $result );
+  
+  $pagination = $userModel->orderBy('id', 'ASC')->paginate($perPage, $currentPage, $path);
+  dd($pagination );
+  responseJson($pagination);
+
+   // echo json_encode(   $pagination );
 
     } catch (\PDOException $e) {
       // Aquí puedes manejar cualquier error que pueda ocurrir

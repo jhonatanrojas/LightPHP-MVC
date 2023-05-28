@@ -12,7 +12,11 @@ function recurso ($nombre_recurso) {
     return $recurso;
     
 }
-
+ function responseJson($data)
+{
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
 function verificar_request($post){
 
 

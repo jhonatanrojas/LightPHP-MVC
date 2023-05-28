@@ -4,3 +4,4 @@
 .composer.lock
 .vscode
 .env
+/vite/node_modules/*

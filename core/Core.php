@@ -26,7 +26,7 @@ class Core
 	
 	
 
-        $routes = require __DIR__ . '/../routes.php'; 
+        $routes = require __DIR__ . '/../routes/routes.php'; 
         $dispatcher = simpleDispatcher(function (RouteCollector $r) use ($routes) {
             foreach ($routes as $route) {
                 if ($route[0] === 'GROUP') {
@@ -42,7 +42,8 @@ class Core
         });
 
         $httpMethod = $_SERVER['REQUEST_METHOD'];
-        $uri = $_SERVER['REQUEST_URI'];
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
         $scriptName = $_SERVER['SCRIPT_NAME'];
         $baseSegment = str_replace('/index.php', '', $scriptName);
 

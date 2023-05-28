@@ -1,6 +1,8 @@
-#Proyecto PHP con MVC y SOLID
+#LightPHP-MVC
+##Proyecto PHP con MVC + VUE
 
 Este proyecto utiliza el patrón de diseño MVC (Modelo-Vista-Controlador), principios SOLID y DDD (Domain-Driven Design) para estructurar el código de manera limpia y mantenible. Utiliza el paquete `nikic/fast-route` para el manejo de rutas y `php-di/php-di` para la inyección de dependencias.
+Ademas incorpora vue.js y el manejador de paquetes vite.js
 
 es proyecto ligero que te permite escalar cualquier aplicacion
 
@@ -159,8 +161,32 @@ $result = $postModel->count()
     ->where('active', true)
 ;
 ```
+$page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
+
 
 ```
+El método `paginate`  del siguiente modo:
+Primero, necesitarás instanciar tu modelo. Por ejemplo, si tienes un modelo de usuarios `(UserModel)`, lo instanciarías así:
+`$userModel = new UserModel();`
+
+Luego, puedes llamar al método `paginate` en tu modelo. Deberás pasar tres argumentos a este método:
+
+El número de registros que quieres mostrar por página.
+La página actual.
+La URL  de la peticion.
+Aquí tienes un ejemplo de cómo podrías hacerlo:
+$perPage = 10; // Muestra 10 usuarios por página.
+$currentPage = 1; // Estamos en la primera página.
+$path = '/users';
+
+``
+    $pagination = $userModel->orderBy('id', 'ASC')->paginate($perPage, $currentPage, $path);
+  responseJson($pagination);
+
+``
+La variable $pagination será un array que contiene la data paginada, los enlaces de paginación y metadatos sobre la paginación.
+tambien puedes aplicarle los metodos where join y order by
+
 
 `query(string $sql, array $params = []): array`
 Este método ejecuta una consulta SQL directamente en la base de datos.
@@ -236,10 +262,45 @@ public function createPost(Request $request)
     // ...
 }
 ```
-## Licencia
+El método `validate`se puede usar de la siguiente manera en el controlador al intentar insertar un usuario. Primero debes crear una instancia de la clase Request y luego pasar el arreglo de reglas de validación al método validate. Aquí tienes un ejemplo de cómo se haría en un método del controlador para crear un usuario:
+```
+use exceptions\ValidationException;
+public function create() {
+    $request = new Request();
 
-## Contribuir
+    try {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+            'birthdate' => 'date'
+        ]);
+
+        $user = new User();
+        $user->name = $_POST['name'];
+        $user->email = $_POST['email'];
+        $user->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $user->birthdate = $_POST['birthdate'];
+        $user->save();
+
+        // Redirige a la página de inicio de sesión, por ejemplo
+   } catch (ValidationException $ve) {
+    // Maneja ValidationException...
+            $errors = $ve->getErrors();
+            // Procesa los errores...
+        } catch (Exception $e) {
+            // Maneja excepciones generales...
+            echo $e->getMessage();
+        }
+}
+
+```
+
+## Helper dd() no mas var_dump
+- Incorporamos al proyecto la funcion dd del proyecto de laravel, pequeña función muy útil para probar rápidamente el contenido de una variable: dd() (Dump and Die). Se utiliza para mostrar texto en pantalla y finalizar la ejecución del programa
+## Licencia
 Este proyecto está licenciado bajo los términos de la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+## Contribuir
 
 
 @ MVC ligero creado por jhonatanrojas

@@ -9,8 +9,8 @@
 		"gimucco/tiktok-loginkit": "^0.4.1",
 		"php-di/php-di": "^6.0",
 		"vlucas/phpdotenv": "^5.5",
-		"tracy/tracy": "^2.10",
-		"maximebf/debugbar": "^1.18"
+		"larapack/dd": "1.*"
+
 
 
 
