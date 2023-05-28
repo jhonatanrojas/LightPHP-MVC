@@ -1,4 +1,5 @@
 #LightPHP-MVC
+
 ##Proyecto PHP con MVC + VUE
 
 Este proyecto utiliza el patrón de diseño MVC (Modelo-Vista-Controlador), principios SOLID y DDD (Domain-Driven Design) para estructurar el código de manera limpia y mantenible. Utiliza el paquete `nikic/fast-route` para el manejo de rutas y `php-di/php-di` para la inyección de dependencias.
