@@ -10,10 +10,8 @@
 </head>
 <body>
 <?php $this->loadView($viewName, $viewData); ?>
-<?php  header('Content-Type', 'text/javascript');
-$debugbarRenderer->dumpJsAssets(); ?>
-<?php echo $debugbarRenderer->renderHead() ?>
-<?php echo $debugbarRenderer->render() ?>
+
+
 
 </body>
 </html>

@@ -1,17 +1,18 @@
 CREATE TABLE users (
   id BIGSERIAL PRIMARY KEY,
   nombre VARCHAR(255),
-  correo_electronico VARCHAR(255) UNIQUE,
-  contraseña VARCHAR(255),
-  numero_telefonico VARCHAR(20),
-  autenticado BOOLEAN,
+  email VARCHAR(255) UNIQUE,
+  pass VARCHAR(255),
+  numero_tlf VARCHAR(20),
+  autenticado BOOLEAN DEFAULT false,
+  active BOOLEAN DEFAULT true,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE restaurants (
   id BIGSERIAL PRIMARY KEY,
-  id_user BIGINT ,
+  user_id BIGINT ,
   nombre VARCHAR(255),
   url_website VARCHAR(255),
   url_google_maps VARCHAR(255),
@@ -53,7 +54,7 @@ CREATE TABLE social_network_authentications (
 
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
-  id_restaurant BIGINT,
+ restaurant_id BIGINT,
   titulo VARCHAR(255),
   contenido TEXT,
   imagen VARCHAR(255),
@@ -66,16 +67,16 @@ CREATE TABLE posts (
 
 CREATE TABLE approvals (
   id BIGSERIAL PRIMARY KEY,
-  id_post BIGINT,
+  post_id BIGINT,
   codigo_sms VARCHAR(10),
   aprobado BOOLEAN,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE multimedia_post (
+CREATE TABLE multimedia_posts (
   id SERIAL PRIMARY KEY,
-  id_post BIGINT ,
+  post_id BIGINT ,
   tipo VARCHAR(50) CHECK (tipo IN ('imagen', 'video')),
   url_archivo VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

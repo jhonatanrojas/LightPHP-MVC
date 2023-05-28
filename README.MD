@@ -35,10 +35,22 @@ es proyecto ligero que te permite escalar cualquier aplicacion
 
 
 # Aquí se muestra cómo configurar la clase User, que extiende de la clase Model:
+
+ cualquier clase que extienda Model automáticamente asumirá el nombre de la tabla basándose en su nombre de clase. Por ejemplo, la clase User tendría una tabla llamada 'users', y una clase Restaurant tendría una tabla llamada 'restaurants'.
+ si tu base de datos utiliza nombres de tabla en singular o alguna otra convención, tendrás que ajustar la propiedad
+ protected $table; en tu modelo
+ tambien puedes especificar los siguientes campos en el modelo
+  - `protected primaryKey:` define el campo primary que de la tabla por defalut definido en 'id'
+  - `protected array_result:` define el campo se rotornan los resultados del query por default retornan como array de lo contrario retornan como objeto-
+ 
+  - `protected autoUpdateTimestamp:`  por default 'false' se usa para agregar autumaticamente valor de actualizacion en el campo updated_at de la tabla.
+    - `protected updated_at:` define el campo timestamp para guardar la fecha y hora de la actualizacion de un registro  por default 'updated_at'
+ ejemplo
+
 ```
 <?php
 
-require_once 'Model.php';
+class User extends Model;
 
 class User extends Model {
     protected $table = 'users';
@@ -50,7 +62,7 @@ class User extends Model {
 }
 
 ```
-
+si se desea usar el constructor en el modelo es necesario agregar      parent::__construct();
 - En este caso, configuramos la tabla a la que se aplica la clase User (users), y creamos un método (posts) que obtiene todas las publicaciones de un usuario.
 
 Ahora puedes usar la clase User para hacer consultas relacionadas con los usuarios. Aquí hay algunos ejemplos:
@@ -107,9 +119,18 @@ Este método devuelve todas las filas que cumplen con las condiciones previament
 Ejemplo:
 ```
 $userModel = new User();
-$users = $userModel->where('email', 'like', '%@example.com%')->get();
+$users = $userModel->where('email', '%juan%','LIKE')->get();
 ```
+`select()`
+ puedes hacer una consulta personalizada utilizando el método select de la siguiente manera:
+```
+$userModel = new User();
 
+$result = $userModel->select('users.nameUser', 'categories.nameCategory')
+                    ->where('active', true)
+                    ->orderBy('id', 'ASC')
+                    ->get();
+```
 `limit(int $limit): Model`
 Este método limita el número de filas devueltas por el método get.
 
@@ -117,8 +138,30 @@ Ejemplo:
 ```
 $userModel = new User();
 $users = $userModel->limit(10)->get();
+$userModel->where('email', '%juan%','LIKE')->limit(10)->get();
 
 ```
+metodos `join` ,`leftJoin`  `rightJoin` 
+para usar consultas relacionas puedes usar de la siguiente manera ejemplo
+
+
+```
+$result = $userModel->select('users.nombre', 'titulo')
+                    ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
+                    ->where('users.id', 1)
+                    ->orderBy('id', 'ASC')
+                    ->get();
+
+
+```
+metodo `count()`
+$result = $postModel->count()
+    ->where('active', true)
+;
+```
+
+```
+
 `query(string $sql, array $params = []): array`
 Este método ejecuta una consulta SQL directamente en la base de datos.
 

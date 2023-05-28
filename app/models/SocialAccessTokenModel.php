@@ -3,7 +3,7 @@
 namespace models;
 
 use core\Model;
-
+use core\Database;
 
 /**
  * Modelo de la base de  envios masiovos
@@ -18,7 +18,7 @@ class SocialAccessTokenModel extends Model
     //-----------------------------------------------------------------------
     public function __construct()
     {
-        parent::__construct();
+       
 
     }
 

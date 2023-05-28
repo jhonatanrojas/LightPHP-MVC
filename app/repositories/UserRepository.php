@@ -13,10 +13,10 @@ class UserRepository implements UserRepositoryInterface
         $this->model = $model;
     }
 
-    public function getUser(string $username): array
+    public function getUserById(int $id): array
     {
         
-        return $this->model->getUser($username);
+        return  $this->model->where('id', $id)->first();
 
     }
   

@@ -1,15 +1,15 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use controllers\AuthController;
+use controllers\AuthUserController;
 use Dotenv\Dotenv;
 use services\jwt\JwtAuth;
 use repositories\UserRepositoryInterface;
 use models\SocialAccessTokenModel;
 
-class AuthControllerTest extends TestCase
+class AuthUserControllerTest extends TestCase
 {
     private $userRepository;
-    private $authController;
+    private $AuthUserController;
 
     protected function setUp(): void
     {
@@ -17,7 +17,7 @@ class AuthControllerTest extends TestCase
           $dotenv = Dotenv::createImmutable(__DIR__.'/../../../');
           $dotenv->load();
         $this->userRepository = $this->createMock(UserRepositoryInterface::class);
-        $this->authController = new AuthController($this->userRepository);
+        $this->AuthUserController = new AuthUserController($this->userRepository);
     }
 
     public function testIndex_ValidCredentials_ReturnsTokenAndPlatforms()
@@ -45,14 +45,14 @@ class AuthControllerTest extends TestCase
             ->with($email)
             ->willReturn($user);
 
-        $this->authController->jwtAuth = $this->createMock(JwtAuth::class);
-        $this->authController->jwtAuth->expects($this->once())
+        $this->AuthUserController->jwtAuth = $this->createMock(JwtAuth::class);
+        $this->AuthUserController->jwtAuth->expects($this->once())
             ->method('createJwt')
             ->with($userId)
             ->willReturn($token);
 
-        $this->authController->socialAccessTokenModel = $this->createMock(SocialAccessTokenModel::class);
-        $this->authController->socialAccessTokenModel->expects($this->once())
+        $this->AuthUserController->socialAccessTokenModel = $this->createMock(SocialAccessTokenModel::class);
+        $this->AuthUserController->socialAccessTokenModel->expects($this->once())
             ->method('getAccess')
             ->with($userId)
             ->willReturn($platforms);
@@ -65,7 +65,7 @@ class AuthControllerTest extends TestCase
         $_POST['password'] = $password;
     
         ob_start();
-        $this->authController->index();
+        $this->AuthUserController->index();
         $actualResult = ob_get_clean();
 
         // Assert
@@ -103,7 +103,7 @@ class AuthControllerTest extends TestCase
         $_POST['password'] = $password;
         ob_start();
      
-        $this->authController->index();
+        $this->AuthUserController->index();
         $actualResult = ob_get_clean();
 
         // Assert

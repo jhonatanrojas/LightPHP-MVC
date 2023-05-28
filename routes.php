@@ -3,8 +3,8 @@
 //  archivo de rutas...
 return [
     ['GET', '/', ['InicioController', 'index']],
-    ['*', '/auth', ['AuthController', 'index']],
-    ['GET', '/auth_tiktok', ['SocialMedia\Auth\TiktokAuthController', 'index']],
+    ['*', '/auth', ['AuthUserController', 'index']],
+
     ['POST','/files/uploads',['FileUploaderController','index']],
     [
         'GROUP', '/twitter', [
@@ -15,6 +15,14 @@ return [
         ]
 
 
+    ],
+    [
+        'GROUP', '/user', [
+            ['POST', '/create', ['AuthUserController', 'create']],
+            ['POST', '/update', ['AuthUserController', 'update']],
+            ['POST', '/id', ['AuthUserController', 'getUser']],
+
+        ]
     ],
     [
         'GROUP', '/images', [
