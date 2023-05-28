@@ -3,8 +3,8 @@
 //  archivo de rutas...
 return [
     ['GET', '/', ['InicioController', 'index']],
-    ['*', '/auth', ['AuthUserController', 'index']],
-
+ //   ['*', '/auth', ['AuthUserController', 'index']],
+/*
     ['POST','/files/uploads',['FileUploaderController','index']],
     [
         'GROUP', '/twitter', [
@@ -38,5 +38,5 @@ return [
 
 
         ]
-    ]
+    ]*/
 ];
