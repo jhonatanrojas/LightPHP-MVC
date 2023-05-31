@@ -96,7 +96,7 @@ $userModel->update(['email' => 'john.doe@example.com'], ['id' => 1]);
 Ejemplo
 ```
 $userModel = new User();
-$userModel->delete(['id' => 1]);
+$userModel->delete()->where('id',1);
 ```
 `where(string $field, mixed $value): Model`
 Este método agrega una condición a la próxima consulta.
@@ -272,7 +272,7 @@ public function create() {
     try {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:users',
             'password' => 'required',
             'birthdate' => 'date'
         ]);
