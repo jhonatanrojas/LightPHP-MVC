@@ -15,7 +15,7 @@ function recurso ($nombre_recurso) {
  function responseJson($data)
 {
     header('Content-Type: application/json');
-    echo json_encode($data);
+    return json_encode($data);
 }
 function verificar_request($post){
 
@@ -75,3 +75,13 @@ function fecha_to_sql ($fecha_europea, $con_horas=true) {
     return $fecha_sql;
 
 }
+function url($name)
+{
+
+    // Aquí es donde agregas la URL base
+    $baseUrl = $_ENV['URL_BASE'];
+    return $baseUrl . $name;
+}
+
+
+

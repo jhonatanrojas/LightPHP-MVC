@@ -6,6 +6,8 @@ use controllers\NotFoundController;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
+use exceptions\ValidationException;
+use core\JSendResponse;
 use DI\Container;
 use Exception;
 
@@ -23,10 +25,14 @@ class Core
     public function run()
     {
 
-	
-	
 
-        $routes = require __DIR__ . '/../routes/routes.php'; 
+
+
+        $routes = require __DIR__ . '/../routes/web.php';
+        $routes_api = require __DIR__ . '/../routes/api.php';
+        $routes = array_merge($routes, $routes_api);
+        // echo   json_encode($routes);
+
         $dispatcher = simpleDispatcher(function (RouteCollector $r) use ($routes) {
             foreach ($routes as $route) {
                 if ($route[0] === 'GROUP') {
@@ -57,6 +63,7 @@ class Core
 
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
+                http_response_code(404);
                 $controller = new NotFoundController();
                 $controller->index();
                 break;
@@ -70,9 +77,15 @@ class Core
                 $controllerClass = "\\controllers\\" . $handler[0];
                 $method = $handler[1];
                 if (class_exists($controllerClass)) {
-                    $controller = $this->container->get($controllerClass);
-                    $controller->$method(...$vars);
+                    try {
+                        $controller = $this->container->get($controllerClass);
+                        echo   $controller->$method(...$vars);
+                    } catch (ValidationException $e) {
+
+                        echo JSendResponse::fail('Agregue los Campos requeridos', 422, $e->getErrors());
+                    }
                 } else {
+                    http_response_code(404);
                     throw new Exception("Controller class $controllerClass not found");
                 }
                 break;

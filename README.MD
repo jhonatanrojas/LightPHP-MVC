@@ -1,9 +1,8 @@
 #LightPHP-MVC
+##Proyecto PHP con MVC 
 
-##Proyecto PHP con MVC + VUE
+Este proyecto utiliza el patrón de diseño MVC (Modelo-Vista-Controlador), para estructurar el código de manera limpia y mantenible. Utiliza el paquete `nikic/fast-route` para el manejo de rutas y `php-di/php-di` para la inyección de dependencias.
 
-Este proyecto utiliza el patrón de diseño MVC (Modelo-Vista-Controlador), principios SOLID y DDD (Domain-Driven Design) para estructurar el código de manera limpia y mantenible. Utiliza el paquete `nikic/fast-route` para el manejo de rutas y `php-di/php-di` para la inyección de dependencias.
-Ademas incorpora vue.js y el manejador de paquetes vite.js
 
 es proyecto ligero que te permite escalar cualquier aplicacion
 
@@ -14,7 +13,7 @@ es proyecto ligero que te permite escalar cualquier aplicacion
     - `controllers`: Contiene los controladores de la aplicación, que manejan la lógica de la interfaz de usuario.
     - `helpers`: Contiene funciones auxiliares que se pueden utilizar en toda la aplicación.
     - `models`: Contiene los modelos de la aplicación, que representan las entidades de negocio y contienen la lógica de negocio.
-    - `repositories`: Contiene los repositorios, que proporcionan una abstracción para el acceso a los datos.
+    - `domain`: Contiene los repositorios, que proporcionan una abstracción para el acceso a los datos.
     - `services`: Contiene los servicios, que encapsulan la lógica de negocio que no pertenece a ninguna entidad específica.
     - `views`: Contiene las vistas de la aplicación, que son responsables de presentar la información al usuario- `uploads`: Contiene los archivos subidos por los usuarios.
 
@@ -96,7 +95,7 @@ $userModel->update(['email' => 'john.doe@example.com'], ['id' => 1]);
 Ejemplo
 ```
 $userModel = new User();
-$userModel->delete()->where('id',1);
+$userModel->delete(['id' => 1]);
 ```
 `where(string $field, mixed $value): Model`
 Este método agrega una condición a la próxima consulta.
@@ -169,6 +168,10 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0 ?
 El método `paginate`  del siguiente modo:
 Primero, necesitarás instanciar tu modelo. Por ejemplo, si tienes un modelo de usuarios `(UserModel)`, lo instanciarías así:
 `$userModel = new UserModel();`
+
+
+ `updateOrInsert(array $data, array $uniqueKeys)`
+  - verifica si existe un registro, si no exite lo inserta de lo contrario actualiza
 
 Luego, puedes llamar al método `paginate` en tu modelo. Deberás pasar tres argumentos a este método:
 
@@ -272,7 +275,7 @@ public function create() {
     try {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'birthdate' => 'date'
         ]);
@@ -304,4 +307,4 @@ Este proyecto está licenciado bajo los términos de la licencia MIT. Consulta e
 ## Contribuir
 
 
-@ MVC ligero creado por jhonatanrojas
+@ MVC ligero creado por jhonatanrojas 2023
