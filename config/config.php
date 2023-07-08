@@ -3,7 +3,7 @@ require_once 'vendor/autoload.php';
 
 
 
-$dotenv = Dotenv\Dotenv::createImmutable(PROJECT_ROOT.'/backend');
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 define("APP_DEBUG",getenv('APP_DEBUG'));		// Local server
 //define("ENVIRONMENT", "production");		// Online server
@@ -27,7 +27,8 @@ define('DB_HOST', getenv('DB_HOST'));
 define('DB_CHARSET', getenv('DB_CHARSET'));
 define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
-
+define('DB_USER_EMP', getenv('DB_USER_EMP'));
+define('DB_PASS_EMP', getenv('DB_PASS_EMP'));
 define('TOKEN_AUTH', getenv('TOKEN_AUTH'));
 
 

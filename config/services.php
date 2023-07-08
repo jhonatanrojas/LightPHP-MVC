@@ -8,15 +8,13 @@ $containerBuilder = new ContainerBuilder();
 
 $containerBuilder->addDefinitions([
     // Aquí es donde defines tus dependencias
-   /* 'repositories\socialMedia\SocialAccessTokenRepositoryInterface' => function () {
-        return new \repositories\socialMedia\SocialAccessTokenRepository(new \models\SocialAccessTokenModel());
-    },
-    'repositories\UserRepositoryInterface' => function () {
-        return new \repositories\UserRepository(new \models\User());
+  
+    'domain\UserRepositoryInterface' => function () {
+        return new \models\UserActiveRecordRepository(new \models\User());
     },
     'services\FileUploaderInterface' => function () {
         return new \services\FileUploader();
-    },*/
+    },
 
 
     

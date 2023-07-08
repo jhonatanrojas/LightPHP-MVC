@@ -14,6 +14,7 @@ abstract class Controller
     /**
      * Main method of the controller. It will be responsible for calling a view.
      */
+	 protected $request;
     public abstract function index();
     
 	/**
@@ -38,7 +39,7 @@ abstract class Controller
 	{
 		extract($viewData);				// Transforms array keys into variables
 		require 'app/views/template.php';
-	}
+	} 
 	
 	
 
